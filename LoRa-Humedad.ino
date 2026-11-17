@@ -10,9 +10,9 @@
 
 const int SENSOR_PIN = 6; 
 
-int valorAire = 2414; 
+int valorAire = 3220; 
 
-int valorAgua = 1195; 
+int valorAgua = 0; 
 
  
 

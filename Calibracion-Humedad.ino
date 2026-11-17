@@ -14,9 +14,9 @@ const int SENSOR_PIN = 6; // GPIO 6 (Pin 4 del HAT J4)
 
 // Calibración del sensor con valores extremos: 
 
-int valorAire = 2414; // Lectura en aire 
+int valorAire = 3220; // Lectura en aire 
 
-int valorAgua = 1195; // Lectura mínima sumergido en agua 
+int valorAgua = 0; // Lectura mínima sumergido en agua 
 
  
 

@@ -10,12 +10,12 @@
 const uint32_t INTERVALO_MS = 60UL * 1000UL;   // 1 minuto
 
 // ---------------- Ahorro de energía ----------------
-// 0 = espera con delay(100) (el monitor serie y la subida de código funcionan bien)
+// 0 = espera con delay(100) 
 // 1 = light sleep entre comprobaciones del botón (consume mucho menos, pero el puerto USB se corta mientras duerme)
 #define USAR_LIGHT_SLEEP 0
 
-// 1 = imprime por serie el estado del botón cada segundo (para depurar). Ponlo a 0 cuando funcione.
-#define DEPURAR_BOTON 1
+// 1 = imprime por serie el estado del botón cada segundo (para depurar). 
+#define DEPURAR_BOTON 0
 
 // ---------------- Pantalla: apagada salvo al medir/enviar y al pulsar el botón amarillo (KEY1) ----------------
 const uint32_t PANTALLA_MS = 10000;   // tiempo encendida tras medir/enviar o tras pulsar
@@ -32,8 +32,9 @@ uint16_t ultimoColor = TFT_YELLOW;
 const int SENSOR_PIN = 6;      // GPIO6 (HAT D3, ADC) - señal del sensor
 const int SENSOR_PWR_PIN = 2;  // GPIO2 (HAT D2, pin 5 del HAT) - alimenta el sensor (cable rojo aquí, ya NO en 3V3)
 const uint32_t SENSOR_WARMUP_MS = 200;   // tiempo de estabilización del sensor antes de medir
-int valorAire = 2414;          // recalibra si cambias la alimentación del sensor
-int valorAgua = 1195;
+// TODO Cambiar los valores por los de calibración del sensor
+int valorAire = 3220;         
+int valorAgua = 0;
 
 // ---------------- SX1262 ----------------
 const int PIN_NSS  = 23;
@@ -53,13 +54,15 @@ NessoBattery battery;
 void guardarPersistencia(uint8_t* buf, size_t len) {
   store.putBytes("persist", buf, len);
 }
-
+ 
 void restaurarPersistencia(uint8_t* buf, size_t len) {
   if (store.isKey("persist") && store.getBytesLength("persist") == len) {
     store.getBytes("persist", buf, len);
   }
 }
 
+
+//TODO Generar en ChirpStack el devEUI, appKey y nwkKey (appKey y nwKey son las mismas)
 uint64_t joinEUI = 0x0000000000000000;
 uint64_t devEUI  = 0xAD48DBF9D02C09E7;
 uint8_t appKey[] = { 0x9A, 0x4D, 0x89, 0x1E, 0xBB, 0x99, 0x80, 0xBB, 0x34, 0x75, 0x03, 0xD9, 0x33, 0xC9, 0xD4, 0x48 };
